@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -13,13 +11,10 @@ import {
   makeStyles
 } from '@material-ui/core';
 import {
-  AlertCircle as AlertCircleIcon,
+  Activity,
   BarChart as BarChartIcon,
-  Lock as LockIcon,
+  Clipboard,
   Settings as SettingsIcon,
-  ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
-  UserPlus as UserPlusIcon,
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
@@ -35,18 +30,18 @@ const items = [
     title: 'Dashboard'
   },
   {
-    href: '/app/customers',
+    href: '/app/patient',
     icon: UsersIcon,
     title: 'Pacientes'
   },
   {
-    href: '/app/products',
-    icon: ShoppingBagIcon,
+    href: '/app/cirurgia',
+    icon: Clipboard,
     title: 'Cirurgias'
   },
   {
-    href: '/app/account',
-    icon: UserIcon,
+    href: '/app/status',
+    icon: Activity,
     title: 'Status'
   },
   {
