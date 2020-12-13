@@ -27,7 +27,7 @@ const TopBar = ({ className, ...rest }) => {
     >
       <Toolbar className={classes.toolbar}>
         <RouterLink to="/">
-          <LocalHospital />
+          <LocalHospital style={{color: '#fce4ec'}}/>
         </RouterLink>
       </Toolbar>
     </AppBar>
