@@ -14,6 +14,8 @@ import {
   FormHelperText,
   Button
 } from '@material-ui/core';
+import { ChevronLeft } from 'react-feather';
+
 import Page from 'src/components/Page';
 
 import { Formik } from 'formik';
@@ -37,11 +39,18 @@ const PatientView = () => {
   return (
     <Page className={classes.root} title="Paciente">
       <Container maxWidth={false}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate('/app/patient')}
+        >
+          <ChevronLeft style={{ marginLeft: '-0.5em' }} />
+          Voltar
+        </Button>
         <Box mt={3}>
           <Card>
             <PerfectScrollbar>
               <Box minWidth={1050}>
-                {`${id}`}
                 <Formik
                   initialValues={{
                     email: '',
@@ -83,18 +92,6 @@ const PatientView = () => {
                     values
                   }) => (
                     <form onSubmit={handleSubmit}>
-                      <Box mb={3}>
-                        <Typography color="textPrimary" variant="h2">
-                          Create new account
-                        </Typography>
-                        <Typography
-                          color="textSecondary"
-                          gutterBottom
-                          variant="body2"
-                        >
-                          Use your email to create new account
-                        </Typography>
-                      </Box>
                       <TextField
                         error={Boolean(touched.fullName && errors.fullName)}
                         fullWidth
