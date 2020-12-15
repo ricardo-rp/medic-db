@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
   Card,
@@ -59,58 +58,154 @@ const PatientView = () => {
           <Card>
             <CardHeader title={`Detalhes do paciente ${id}`} />
             <Divider />
-            <PerfectScrollbar>
-              <Box minWidth={1050}>
-                <Formik
-                  initialValues={{
-                    fullName: ''
-                  }}
-                  validationSchema={Yup.object().shape({
-                    fullName: Yup.string()
-                      .max(255)
-                      .required('Nome completo é requerido')
-                  })}
-                  onSubmit={() => navigate('/app/dashboard')}
-                >
-                  {({
-                    errors,
-                    handleBlur,
-                    handleChange,
-                    handleSubmit,
-                    isSubmitting,
-                    touched,
-                    values
-                  }) => (
-                    <form onSubmit={handleSubmit}>
-                      <div className={classes.formGrid}>
-                        <TextField
-                          error={Boolean(touched.fullName && errors.fullName)}
-                          helperText={touched.fullName && errors.fullName}
-                          label="Nome completo"
-                          name="fullName"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          value={values.fullName}
-                          variant="outlined"
-                        />
-                      </div>
-                      <Divider />
-                      <CardActions className={classes.submitButton}>
-                        <Button
-                          color="primary"
-                          disabled={isSubmitting}
-                          size="large"
-                          type="submit"
-                          variant="contained"
-                        >
-                          Salvar
-                        </Button>
-                      </CardActions>
-                    </form>
-                  )}
-                </Formik>
-              </Box>
-            </PerfectScrollbar>
+            <Formik
+              initialValues={{
+                fullName: ''
+              }}
+              validationSchema={Yup.object().shape({
+                fullName: Yup.string()
+                  .max(255)
+                  .required('Nome completo é requerido')
+              })}
+              onSubmit={() => navigate('/app/dashboard')}
+            >
+              {({
+                errors,
+                handleBlur,
+                handleChange,
+                handleSubmit,
+                isSubmitting,
+                touched,
+                values
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <div className={classes.formGrid}>
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                    <TextField
+                      error={Boolean(touched.fullName && errors.fullName)}
+                      helperText={touched.fullName && errors.fullName}
+                      label="Nome completo"
+                      name="fullName"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.fullName}
+                      variant="outlined"
+                      maxWidth={1 / 3}
+                    />
+                  </div>
+                  <Divider />
+                  <CardActions className={classes.submitButton}>
+                    <Button
+                      color="primary"
+                      disabled={isSubmitting}
+                      size="large"
+                      type="submit"
+                      variant="contained"
+                    >
+                      Salvar
+                    </Button>
+                  </CardActions>
+                </form>
+              )}
+            </Formik>
           </Card>
         </Box>
       </Container>
