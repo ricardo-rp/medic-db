@@ -17,16 +17,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  root: {},
-  avatar: {
-    marginRight: theme.spacing(2)
-  }
-}));
-
 const Results = ({ className, customers: patients, ...rest }) => {
-  const classes = useStyles();
-
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -41,7 +32,7 @@ const Results = ({ className, customers: patients, ...rest }) => {
   };
 
   return (
-    <Card className={clsx(classes.root, className)} {...rest}>
+    <Card {...rest}>
       <PerfectScrollbar>
         <Box minWidth={1050}>
           <Table>

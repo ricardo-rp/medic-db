@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const PatientView = () => {
+const PatientListView = () => {
   const classes = useStyles();
   const [customers] = useState(data);
 
@@ -37,4 +37,4 @@ const PatientView = () => {
   );
 };
 
-export default PatientView;
+export default PatientListView;
