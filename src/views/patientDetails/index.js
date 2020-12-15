@@ -1,6 +1,10 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import FormikRadioGroup from 'src/components/FormikRadioGroup';
+
+import { Formik, Form, Field } from 'formik';
+import { TextField } from 'formik-material-ui';
 
 import {
   Box,
@@ -21,7 +25,6 @@ import { ChevronLeft } from 'react-feather';
 
 import Page from 'src/components/Page';
 
-import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
 
 require('./styles.css');
@@ -39,6 +42,11 @@ const useStyles = makeStyles(theme => ({
   },
   formGrid: {
     padding: theme.spacing(2)
+  },
+  gridItem: {
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridGap: theme.spacing(2)
   }
 }));
 
@@ -118,47 +126,6 @@ const PatientView = () => {
                       variant="outlined"
                     />
                     <TextField
-                      error={Boolean(touched.weight && errors.weight)}
-                      helperText={touched.weight && errors.weight}
-                      type="number"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">Kg</InputAdornment>
-                        )
-                      }}
-                      label="Peso"
-                      name="weight"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.weight}
-                      variant="outlined"
-                    />
-
-                    <TextField
-                      error={Boolean(
-                        touched.handbookNumber && errors.handbookNumber
-                      )}
-                      helperText={
-                        touched.handbookNumber && errors.handbookNumber
-                      }
-                      label="Num. prontuario"
-                      name="handbookNumber"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.handbookNumber}
-                      variant="outlined"
-                    />
-                    <TextField
-                      error={Boolean(touched.bedNumber && errors.bedNumber)}
-                      helperText={touched.bedNumber && errors.bedNumber}
-                      label="Num. leito"
-                      name="bedNumber"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.bedNumber}
-                      variant="outlined"
-                    />
-                    <TextField
                       error={Boolean(touched.city && errors.city)}
                       helperText={touched.city && errors.city}
                       label="Cidade de nascimento"
@@ -188,28 +155,75 @@ const PatientView = () => {
                       value={values.surgeryId}
                       variant="outlined"
                     />
-                    <div>
-                      <InputLabel>Sexo</InputLabel>
-                      <Field name="sex">
-                        {({ field, form, meta }) => {
-                          return (
-                            <FormikRadioGroup
-                              form={form}
-                              field={field}
-                              style={{ flexDirection: 'row' }}
-                            >
-                              {['M', 'F'].map(option => (
-                                <FormControlLabel
-                                  key={option}
-                                  value={option}
-                                  control={<Radio />}
-                                  label={option}
-                                />
-                              ))}
-                            </FormikRadioGroup>
-                          );
+                    <div className={classes.gridItem}>
+                      <TextField
+                        error={Boolean(touched.weight && errors.weight)}
+                        helperText={touched.weight && errors.weight}
+                        type="number"
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">Kg</InputAdornment>
+                          )
                         }}
-                      </Field>
+                        label="Peso"
+                        name="weight"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.weight}
+                        variant="outlined"
+                      />
+
+                      <TextField
+                        error={Boolean(
+                          touched.handbookNumber && errors.handbookNumber
+                        )}
+                        helperText={
+                          touched.handbookNumber && errors.handbookNumber
+                        }
+                        type="number"
+                        label="# Prontuario"
+                        name="handbookNumber"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.handbookNumber}
+                        variant="outlined"
+                      />
+                    </div>
+                    <div className={classes.gridItem}>
+                      <TextField
+                        error={Boolean(touched.bedNumber && errors.bedNumber)}
+                        helperText={touched.bedNumber && errors.bedNumber}
+                        type="number"
+                        label="# Leito"
+                        name="bedNumber"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.bedNumber}
+                        variant="outlined"
+                      />
+                      <div>
+                        <InputLabel>Sexo</InputLabel>
+                        <Field name="sex">
+                          {({ field, form, meta }) => {
+                            return (
+                              <FormikRadioGroup
+                                form={form}
+                                field={field}
+                                style={{ flexDirection: 'row' }}
+                              >
+                                {['M', 'F'].map(option => (
+                                  <FormControlLabel
+                                    key={option}
+                                    value={option}
+                                    control={<Radio />}
+                                    label={option}
+                                  />
+                                ))}
+                              </FormikRadioGroup>
+                            );
+                          }}
+                        </Field>
+                      </div>
                     </div>
                   </div>
                   <Divider />
