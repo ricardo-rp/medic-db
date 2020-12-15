@@ -26,8 +26,6 @@ import Page from 'src/components/Page';
 
 import * as Yup from 'yup';
 
-require('./styles.css');
-
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.dark,
