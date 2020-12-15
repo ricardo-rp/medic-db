@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams, Link as RouterLink } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
   Card,
-  Checkbox,
   Container,
-  Link,
   makeStyles,
   TextField,
-  Typography,
-  FormHelperText,
-  Button
+  Button,
+  Divider,
+  CardHeader,
+  CardActions
 } from '@material-ui/core';
 import { ChevronLeft } from 'react-feather';
 
@@ -21,12 +20,21 @@ import Page from 'src/components/Page';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+require('./styles.css');
+
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.dark,
     minHeight: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
+  },
+  submitButton: {
+    float: 'right',
+    marginRight: theme.spacing(1)
+  },
+  formGrid: {
+    padding: theme.spacing(2)
   }
 }));
 
@@ -45,10 +53,12 @@ const PatientView = () => {
           onClick={() => navigate('/app/patient')}
         >
           <ChevronLeft style={{ marginLeft: '-0.5em' }} />
-          Voltar
+          Voltar sem salvar
         </Button>
         <Box mt={3}>
           <Card>
+            <CardHeader title={`Detalhes do paciente ${id}`} />
+            <Divider />
             <PerfectScrollbar>
               <Box minWidth={1050}>
                 <Formik
@@ -66,21 +76,9 @@ const PatientView = () => {
                     motherName: Yup.string()
                       .max(255)
                       .required('Nome da mãe é requerido'),
-                    email: Yup.string()
-                      .email('Must be a valid email')
-                      .max(255)
-                      .required('Email is required'),
-                    password: Yup.string()
-                      .max(255)
-                      .required('password is required'),
-                    policy: Yup.boolean().oneOf(
-                      [true],
-                      'This field must be checked'
-                    )
+                    email: Yup.date().required('Data de nascimento é requerido')
                   })}
-                  onSubmit={() => {
-                    navigate('/app/dashboard', { replace: true });
-                  }}
+                  onSubmit={() => navigate('/app/dashboard')}
                 >
                   {({
                     errors,
@@ -92,96 +90,31 @@ const PatientView = () => {
                     values
                   }) => (
                     <form onSubmit={handleSubmit}>
+                      <div className={classes.formGrid}>
                       <TextField
-                        error={Boolean(touched.fullName && errors.fullName)}
-                        fullWidth
-                        helperText={touched.fullName && errors.fullName}
-                        label="First name"
-                        margin="normal"
-                        name="firstName"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.fullName}
-                        variant="outlined"
-                      />
-                      <TextField
-                        error={Boolean(touched.motherName && errors.motherName)}
-                        fullWidth
-                        helperText={touched.motherName && errors.motherName}
-                        label="Last name"
-                        margin="normal"
-                        name="lastName"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.motherName}
-                        variant="outlined"
-                      />
-                      <TextField
-                        error={Boolean(touched.email && errors.email)}
-                        fullWidth
-                        helperText={touched.email && errors.email}
-                        label="Email Address"
-                        margin="normal"
-                        name="email"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        type="email"
-                        value={values.email}
-                        variant="outlined"
-                      />
-                      <TextField
-                        error={Boolean(touched.password && errors.password)}
-                        fullWidth
-                        helperText={touched.password && errors.password}
-                        label="Password"
-                        margin="normal"
-                        name="password"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        type="password"
-                        value={values.password}
-                        variant="outlined"
-                      />
-                      <Box alignItems="center" display="flex" ml={-1}>
-                        <Checkbox
-                          checked={values.policy}
-                          name="policy"
+                          name="firstName"
+                          label="Nome completo"
+                          variant="outlined"
+                          margin="normal"
+                          error={Boolean(touched.fullName && errors.fullName)}
+                          helperText={touched.fullName && errors.fullName}
+                          onBlur={handleBlur}
                           onChange={handleChange}
+                          value={values.fullName}
                         />
-                        <Typography color="textSecondary" variant="body1">
-                          I have read the{' '}
-                          <Link
-                            color="primary"
-                            component={RouterLink}
-                            to="#"
-                            underline="always"
-                            variant="h6"
-                          >
-                            Terms and Conditions
-                          </Link>
-                        </Typography>
-                      </Box>
-                      {Boolean(touched.policy && errors.policy) && (
-                        <FormHelperText error>{errors.policy}</FormHelperText>
-                      )}
-                      <Box my={2}>
+                      </div>
+                      <Divider />
+                      <CardActions className={classes.submitButton}>
                         <Button
                           color="primary"
                           disabled={isSubmitting}
-                          fullWidth
                           size="large"
                           type="submit"
                           variant="contained"
                         >
-                          Sign up now
+                          Salvar
                         </Button>
-                      </Box>
-                      <Typography color="textSecondary" variant="body1">
-                        Have an account?{' '}
-                        <Link component={RouterLink} to="/login" variant="h6">
-                          Sign in
-                        </Link>
-                      </Typography>
+                      </CardActions>
                     </form>
                   )}
                 </Formik>
