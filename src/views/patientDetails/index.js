@@ -40,7 +40,10 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1)
   },
   formGrid: {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gridGap: '1em'
   },
   gridItem: {
     display: 'grid',
@@ -68,7 +71,7 @@ const PatientView = () => {
         </Button>
         <Box mt={3}>
           <Card>
-            <CardHeader title={`Detalhes do paciente ${id}`} />
+            <CardHeader title={`Detalhes do paciente`} />
             <Divider />
             <Formik
               initialValues={{
