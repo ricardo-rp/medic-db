@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import FormikRadioGroup from 'src/components/FormikRadioGroup';
 
 import {
   Box,
@@ -10,13 +11,17 @@ import {
   Button,
   Divider,
   CardHeader,
-  CardActions
+  CardActions,
+  InputAdornment,
+  FormControlLabel,
+  Radio,
+  InputLabel
 } from '@material-ui/core';
 import { ChevronLeft } from 'react-feather';
 
 import Page from 'src/components/Page';
 
-import { Formik } from 'formik';
+import { Field, Formik } from 'formik';
 import * as Yup from 'yup';
 
 require('./styles.css');
@@ -89,107 +94,123 @@ const PatientView = () => {
                       onChange={handleChange}
                       value={values.fullName}
                       variant="outlined"
-                      maxWidth={1 / 3}
                     />
                     <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
+                      error={Boolean(touched.motherName && errors.motherName)}
+                      helperText={touched.motherName && errors.motherName}
+                      label="Nome da mãe"
+                      name="motherName"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.fullName}
+                      value={values.motherName}
                       variant="outlined"
-                      maxWidth={1 / 3}
                     />
                     <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
+                      error={Boolean(touched.birthDate && errors.birthDate)}
+                      helperText={touched.birthDate && errors.birthDate}
+                      type="datetime-local"
+                      InputLabelProps={{ shrink: true }}
+                      label="Data de nascimento"
+                      name="birthDate"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.fullName}
+                      value={values.birthDate}
                       variant="outlined"
-                      maxWidth={1 / 3}
                     />
                     <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
+                      error={Boolean(touched.weight && errors.weight)}
+                      helperText={touched.weight && errors.weight}
+                      type="number"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">Kg</InputAdornment>
+                        )
+                      }}
+                      label="Peso"
+                      name="weight"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.fullName}
+                      value={values.weight}
                       variant="outlined"
-                      maxWidth={1 / 3}
+                    />
+
+                    <TextField
+                      error={Boolean(
+                        touched.handbookNumber && errors.handbookNumber
+                      )}
+                      helperText={
+                        touched.handbookNumber && errors.handbookNumber
+                      }
+                      label="Num. prontuario"
+                      name="handbookNumber"
+                      onBlur={handleBlur}
+                      onChange={handleChange}
+                      value={values.handbookNumber}
+                      variant="outlined"
                     />
                     <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
+                      error={Boolean(touched.bedNumber && errors.bedNumber)}
+                      helperText={touched.bedNumber && errors.bedNumber}
+                      label="Num. leito"
+                      name="bedNumber"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.fullName}
+                      value={values.bedNumber}
                       variant="outlined"
-                      maxWidth={1 / 3}
                     />
                     <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
+                      error={Boolean(touched.city && errors.city)}
+                      helperText={touched.city && errors.city}
+                      label="Cidade de nascimento"
+                      name="city"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.fullName}
+                      value={values.city}
                       variant="outlined"
-                      maxWidth={1 / 3}
                     />
                     <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
+                      error={Boolean(touched.statusId && errors.statusId)}
+                      helperText={touched.statusId && errors.statusId}
+                      label="Status"
+                      name="statusId"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.fullName}
+                      value={values.statusId}
                       variant="outlined"
-                      maxWidth={1 / 3}
                     />
                     <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
+                      error={Boolean(touched.surgeryId && errors.surgeryId)}
+                      helperText={touched.surgeryId && errors.surgeryId}
+                      label="Cirurgia"
+                      name="surgeryId"
                       onBlur={handleBlur}
                       onChange={handleChange}
-                      value={values.fullName}
+                      value={values.surgeryId}
                       variant="outlined"
-                      maxWidth={1 / 3}
                     />
-                    <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.fullName}
-                      variant="outlined"
-                      maxWidth={1 / 3}
-                    />
-                    <TextField
-                      error={Boolean(touched.fullName && errors.fullName)}
-                      helperText={touched.fullName && errors.fullName}
-                      label="Nome completo"
-                      name="fullName"
-                      onBlur={handleBlur}
-                      onChange={handleChange}
-                      value={values.fullName}
-                      variant="outlined"
-                      maxWidth={1 / 3}
-                    />
+                    <div>
+                      <InputLabel>Sexo</InputLabel>
+                      <Field name="sex">
+                        {({ field, form, meta }) => {
+                          return (
+                            <FormikRadioGroup
+                              form={form}
+                              field={field}
+                              style={{ flexDirection: 'row' }}
+                            >
+                              {['M', 'F'].map(option => (
+                                <FormControlLabel
+                                  key={option}
+                                  value={option}
+                                  control={<Radio />}
+                                  label={option}
+                                />
+                              ))}
+                            </FormikRadioGroup>
+                          );
+                        }}
+                      </Field>
+                    </div>
                   </div>
                   <Divider />
                   <CardActions className={classes.submitButton}>
