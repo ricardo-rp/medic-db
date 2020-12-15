@@ -63,20 +63,12 @@ const PatientView = () => {
               <Box minWidth={1050}>
                 <Formik
                   initialValues={{
-                    email: '',
-                    fullName: '',
-                    motherName: '',
-                    password: '',
-                    policy: false
+                    fullName: ''
                   }}
                   validationSchema={Yup.object().shape({
                     fullName: Yup.string()
                       .max(255)
-                      .required('Nome completo é requerido'),
-                    motherName: Yup.string()
-                      .max(255)
-                      .required('Nome da mãe é requerido'),
-                    email: Yup.date().required('Data de nascimento é requerido')
+                      .required('Nome completo é requerido')
                   })}
                   onSubmit={() => navigate('/app/dashboard')}
                 >
@@ -91,16 +83,15 @@ const PatientView = () => {
                   }) => (
                     <form onSubmit={handleSubmit}>
                       <div className={classes.formGrid}>
-                      <TextField
-                          name="firstName"
-                          label="Nome completo"
-                          variant="outlined"
-                          margin="normal"
+                        <TextField
                           error={Boolean(touched.fullName && errors.fullName)}
                           helperText={touched.fullName && errors.fullName}
+                          label="Nome completo"
+                          name="fullName"
                           onBlur={handleBlur}
                           onChange={handleChange}
                           value={values.fullName}
+                          variant="outlined"
                         />
                       </div>
                       <Divider />
