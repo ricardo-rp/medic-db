@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import FormikRadioGroup from 'src/components/FormikRadioGroup';
 
 import { Formik, Form, Field } from 'formik';
-import { TextField } from 'formik-material-ui';
 
 import {
   Box,
@@ -73,14 +72,51 @@ const PatientView = () => {
             <Divider />
             <Formik
               initialValues={{
-                fullName: ''
+                fullName: '',
+                motherName: '',
+                birthDate: '',
+                city: '',
+                statusId: 0,
+                surgeryId: 0,
+                weight: 0,
+                handbookNumber: 0,
+                bedNumber: 0,
+                sex: 'M'
               }}
               validationSchema={Yup.object().shape({
                 fullName: Yup.string()
                   .max(255)
-                  .required('Nome completo é requerido')
+                  .required('Nome completo é requerido'),
+                motherName: Yup.string()
+                  .max(255)
+                  .required('Nome completo é requerido'),
+                city: Yup.string()
+                  .max(255)
+                  .required('Cidade de nascimento é requerido'),
+                birthDate: Yup.date().required(
+                  'Data de nascimento é requerido'
+                ),
+                statusId: Yup.number().required('Status é requerido'),
+                surgeryId: Yup.number(),
+                weight: Yup.number()
+                  .integer('Insira um numero inteiro')
+                  .required(),
+                handbookNumber: Yup.number()
+                  .integer('Insira um numero inteiro')
+                  .required(),
+                bedNumber: Yup.number()
+                  .integer('Insira um numero inteiro')
+                  .required(),
+                sex: Yup.string()
+                  .max(1)
+                  .required()
               })}
-              onSubmit={() => navigate('/app/dashboard')}
+              onSubmit={(values, { setSubmitting }) => {
+                setTimeout(() => {
+                  setSubmitting(false);
+                  alert(JSON.stringify(values, null, 2));
+                }, 500);
+              }}
             >
               {({
                 errors,
