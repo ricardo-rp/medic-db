@@ -86,30 +86,49 @@ const PatientView = () => {
     ]
   });
 
-  const { id } = useParams();
+  const { id: patientId } = useParams();
 
+  // Fetch patient by Id
   useEffect(() => {
-    console.log({ initialValues });
-  }, [initialValues]);
+    fetchPatient();
+  }, []);
 
-  useEffect(() => {
+  async function fetchPatient() {
+    if (patientId === 'new') return;
+
     setFetching(true);
-    (async function fetchData() {
-      if (id === 'new') return;
+    try {
+      const response = await api.get(`/patient/${patientId}`);
+      let patientData = {
+        ...response.data,
+        birthDate: moment(response.data.birthDate).format('yyyy-MM-DDThh:mm')
+      };
+      setInitialValues(patientData);
+    } catch (e) {
+      console.log(e);
+    }
+    setFetching(false);
+  }
 
+  async function onSubmit(values) {
+    if (patientId === 'new') {
       try {
-        const response = await api.get(`/patient/${id}`);
-        let patientData = {
-          ...response.data,
-          birthDate: moment(response.data.birthDate).format('yyyy-MM-DDThh:mm'),
-        };
-        setInitialValues(patientData);
+        const response = await api.post(`/patient/`);
+        alert('Paciente cadastrado.');
+        navigate('/app/patient');
       } catch (e) {
         console.log(e);
+        alert('Nao foi possivel cadastrar o paciente. Veja o console.');
       }
-    })();
-    setFetching(false);
-  }, [id]);
+    } else {
+      try {
+        await api.update(`/patient/${patientId}`);
+      } catch (e) {
+        console.log(e);
+        alert('Nao foi possivel atualizar o paciente. Veja o console.');
+      }
+    }
+  }
 
   return (
     <Page className={classes.root} title="Paciente">
@@ -157,15 +176,10 @@ const PatientView = () => {
                   .max(1)
                   .required()
               })}
-              onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  setSubmitting(false);
-                  console.log(values);
-                }, 500);
-              }}
+              onSubmit={onSubmit}
             >
-              {({ handleSubmit, isSubmitting }) => (
-                <Form onSubmit={handleSubmit}>
+              {({ isSubmitting }) => (
+                <Form>
                   <div className={classes.formGrid}>
                     <Field
                       component={TextField}
@@ -281,7 +295,7 @@ const PatientView = () => {
                       type="submit"
                       variant="contained"
                     >
-                      Salvar
+                      {patientId === 'new' ? 'Cadastrar' : 'Salvar'}
                     </Button>
                   </CardActions>
                 </Form>
