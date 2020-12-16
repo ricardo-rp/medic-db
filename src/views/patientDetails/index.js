@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import api from 'src/utils/httpClient';
+import moment from 'moment';
 
 import FormikRadioGroup from 'src/components/FormikRadioGroup';
 
@@ -59,7 +60,18 @@ const PatientView = () => {
   const navigate = useNavigate();
 
   const [fetching, setFetching] = useState(false);
-  const [patient, setPatient] = useState({});
+  const [initialValues, setInitialValues] = useState({
+    fullName: '',
+    motherName: '',
+    birthDate: '',
+    city: '',
+    statusId: 0,
+    surgeryId: 0,
+    weight: 0,
+    handbookNumber: 0,
+    bedNumber: 0,
+    sex: 'M'
+  });
   const [options, setOptions] = useState({
     status: [
       { value: 0, label: 'Alta' },
@@ -77,13 +89,21 @@ const PatientView = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    console.log({ initialValues });
+  }, [initialValues]);
+
+  useEffect(() => {
     setFetching(true);
     (async function fetchData() {
       if (id === 'new') return;
 
       try {
-        const request = await api.get(`/patient/${id}`);
-        setPatient(request.data);
+        const response = await api.get(`/patient/${id}`);
+        let patientData = {
+          ...response.data,
+          birthDate: moment(response.data.birthDate).format('yyyy-MM-DDThh:mm'),
+        };
+        setInitialValues(patientData);
       } catch (e) {
         console.log(e);
       }
@@ -107,18 +127,8 @@ const PatientView = () => {
             <CardHeader title={`Detalhes do paciente`} />
             <Divider />
             <Formik
-              initialValues={{
-                fullName: '',
-                motherName: '',
-                birthDate: '',
-                city: '',
-                statusId: 0,
-                surgeryId: 0,
-                weight: 0,
-                handbookNumber: 0,
-                bedNumber: 0,
-                sex: 'M'
-              }}
+              enableReinitialize
+              initialValues={initialValues}
               validationSchema={Yup.object().shape({
                 fullName: Yup.string()
                   .max(255)
