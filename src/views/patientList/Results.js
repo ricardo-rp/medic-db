@@ -56,6 +56,7 @@ const Results = ({ className, ...rest }) => {
                     hover
                     key={patient.id}
                     onClick={() => navigate(`/app/patient/${patient.id}`)}
+                    style={{ cursor: 'pointer' }}
                   >
                     <TableCell>
                       <Box alignItems="center" display="flex">
