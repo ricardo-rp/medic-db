@@ -90,30 +90,28 @@ const PatientView = () => {
 
   // Fetch patient by Id
   useEffect(() => {
-    fetchPatient();
-  }, []);
+    (async function fetchPatient() {
+      if (patientId === 'new') return;
 
-  async function fetchPatient() {
-    if (patientId === 'new') return;
-
-    setFetching(true);
-    try {
-      const response = await api.get(`/patient/${patientId}`);
-      let patientData = {
-        ...response.data,
-        birthDate: moment(response.data.birthDate).format('yyyy-MM-DDThh:mm')
-      };
-      setInitialValues(patientData);
-    } catch (e) {
-      console.log(e);
-    }
-    setFetching(false);
-  }
+      setFetching(true);
+      try {
+        const response = await api.get(`/patient/${patientId}`);
+        let patientData = {
+          ...response.data,
+          birthDate: moment(response.data.birthDate).format('yyyy-MM-DDThh:mm')
+        };
+        setInitialValues(patientData);
+      } catch (e) {
+        console.log(e);
+      }
+      setFetching(false);
+    })();
+  }, [patientId]);
 
   async function onSubmit(values) {
     if (patientId === 'new') {
       try {
-        const response = await api.post(`/patient/`);
+        await api.post(`/patient/`);
         alert('Paciente cadastrado.');
         navigate('/app/patient');
       } catch (e) {
