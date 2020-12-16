@@ -20,24 +20,22 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const Sales = ({ className, ...rest }) => {
+const StatusBarGraph = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
 
   const data = {
     datasets: [
       {
-        backgroundColor: colors.indigo[500],
-        data: [18, 5, 19, 27, 29, 19, 20],
-        label: 'This year'
-      },
-      {
-        backgroundColor: colors.grey[200],
-        data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year'
+        backgroundColor: [
+          colors.green[300],
+          colors.yellow[300],
+          colors.red[300]
+        ],
+        data: [18, 10, 19]
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
+    labels: ['Alta', 'Internado', 'Óbito']
   };
 
   const options = {
@@ -50,8 +48,8 @@ const Sales = ({ className, ...rest }) => {
     scales: {
       xAxes: [
         {
-          barThickness: 12,
-          maxBarThickness: 10,
+          barThickness: 100,
+          maxBarThickness: 200,
           barPercentage: 0.5,
           categoryPercentage: 0.5,
           ticks: {
@@ -96,55 +94,20 @@ const Sales = ({ className, ...rest }) => {
   };
 
   return (
-    <Card
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
-      <CardHeader
-        action={(
-          <Button
-            endIcon={<ArrowDropDownIcon />}
-            size="small"
-            variant="text"
-          >
-            Last 7 days
-          </Button>
-        )}
-        title="Latest Sales"
-      />
+    <Card className={clsx(classes.root, className)} {...rest}>
+      <CardHeader title="Status" />
       <Divider />
       <CardContent>
-        <Box
-          height={400}
-          position="relative"
-        >
-          <Bar
-            data={data}
-            options={options}
-          />
+        <Box height={250} position="relative">
+          <Bar data={data} options={options} />
         </Box>
       </CardContent>
-      <Divider />
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-        p={2}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon />}
-          size="small"
-          variant="text"
-        >
-          Overview
-        </Button>
-      </Box>
     </Card>
   );
 };
 
-Sales.propTypes = {
+StatusBarGraph.propTypes = {
   className: PropTypes.string
 };
 
-export default Sales;
+export default StatusBarGraph;

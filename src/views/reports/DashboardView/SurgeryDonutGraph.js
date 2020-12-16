@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TrafficByDevice = ({ className, ...rest }) => {
+const SurgeryDonutGraph = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -94,7 +94,7 @@ const TrafficByDevice = ({ className, ...rest }) => {
       <CardHeader title="Cirurgias" />
       <Divider />
       <CardContent>
-        <Box height={450}>
+        <Box height={250}>
           <Doughnut data={data} options={options} />
         </Box>
       </CardContent>
@@ -102,8 +102,8 @@ const TrafficByDevice = ({ className, ...rest }) => {
   );
 };
 
-TrafficByDevice.propTypes = {
+SurgeryDonutGraph.propTypes = {
   className: PropTypes.string
 };
 
-export default TrafficByDevice;
+export default SurgeryDonutGraph;
