@@ -31,8 +31,7 @@ const Results = ({ className, ...rest }) => {
       const response = await api.get('/patient/');
       setPatients(response.data);
     } catch (e) {
-      alert('Erro ao buscar a lista de pacientes. Veja o console.');
-      console.log(e);
+      console.log('Erro ao buscar a lista de pacientes', e);
     }
   }
 
