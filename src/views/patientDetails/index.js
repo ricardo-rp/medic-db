@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import api from 'src/utils/httpClient';
 
 import FormikRadioGroup from 'src/components/FormikRadioGroup';
 
@@ -20,9 +22,7 @@ import {
   FormControlLabel,
   Radio,
   InputLabel,
-  Select,
-  MenuItem,
-  FormControl
+  MenuItem
 } from '@material-ui/core';
 import { ChevronLeft } from 'react-feather';
 
@@ -58,7 +58,38 @@ const PatientView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  let { id } = useParams();
+  const [fetching, setFetching] = useState(false);
+  const [patient, setPatient] = useState({});
+  const [options, setOptions] = useState({
+    status: [
+      { value: 0, label: 'Alta' },
+      { value: 1, label: 'Internado' },
+      { value: 2, label: 'Óbito' }
+    ],
+    surgery: [
+      { value: 0, label: 'Cirurgia' },
+      { value: 1, label: 'Hernia umbilical' },
+      { value: 2, label: 'Hipospádia' },
+      { value: 3, label: 'Fimose' }
+    ]
+  });
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    setFetching(true);
+    (async function fetchData() {
+      if (id === 'new') return;
+
+      try {
+        const request = await api.get(`/patient/${id}`);
+        setPatient(request.data);
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+    setFetching(false);
+  }, [id]);
 
   return (
     <Page className={classes.root} title="Paciente">
@@ -119,19 +150,11 @@ const PatientView = () => {
               onSubmit={(values, { setSubmitting }) => {
                 setTimeout(() => {
                   setSubmitting(false);
-                  alert(JSON.stringify(values, null, 2));
+                  console.log(values);
                 }, 500);
               }}
             >
-              {({
-                errors,
-                handleBlur,
-                handleChange,
-                handleSubmit,
-                isSubmitting,
-                touched,
-                values
-              }) => (
+              {({ handleSubmit, isSubmitting }) => (
                 <Form onSubmit={handleSubmit}>
                   <div className={classes.formGrid}>
                     <Field
@@ -167,16 +190,25 @@ const PatientView = () => {
                       label="Status"
                       select
                     >
-                      <MenuItem value="0">Alta</MenuItem>
-                      <MenuItem value="1">Internado</MenuItem>
-                      <MenuItem value="2">Óbito</MenuItem>
+                      {options.status.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
                     </Field>
                     <Field
                       component={TextField}
                       label="Cirurgia"
                       name="surgeryId"
                       variant="outlined"
-                    />
+                      select
+                    >
+                      {options.surgery.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </Field>
                     <div className={classes.gridItem}>
                       <Field
                         component={TextField}
@@ -234,7 +266,7 @@ const PatientView = () => {
                   <CardActions className={classes.submitButton}>
                     <Button
                       color="primary"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || fetching}
                       size="large"
                       type="submit"
                       variant="contained"

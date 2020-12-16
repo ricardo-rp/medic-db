@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 export default [
   {
-    id: uuid(),
+    id: 1,
     address: {
       country: 'USA',
       state: 'West Virginia',
