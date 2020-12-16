@@ -59,7 +59,8 @@ const PatientView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [fetching, setFetching] = useState(false);
+  const [fetchingOptions, setFetchingOptions] = useState(false);
+  const [fetchingPatient, setFetchingPatient] = useState(false);
   const [initialValues, setInitialValues] = useState({
     fullName: '',
     motherName: '',
@@ -72,28 +73,34 @@ const PatientView = () => {
     bedNumber: 0,
     sex: 'M'
   });
-  const [options, setOptions] = useState({
-    status: [
-      { value: 0, label: 'Alta' },
-      { value: 1, label: 'Internado' },
-      { value: 2, label: 'Óbito' }
-    ],
-    surgery: [
-      { value: 0, label: 'Cirurgia' },
-      { value: 1, label: 'Hernia umbilical' },
-      { value: 2, label: 'Hipospádia' },
-      { value: 3, label: 'Fimose' }
-    ]
-  });
+  const [statusOptions, setStatusOptions] = useState([
+    { value: 0, label: 'Alta' },
+    { value: 1, label: 'Internado' },
+    { value: 2, label: 'Óbito' }
+  ]);
+  const [surgeryOptions, setSurgeryOptions] = useState([]);
+
+  // Fetch surgery options
+  useEffect(() => {
+    (async function fetchOptions() {
+      setFetchingOptions(true);
+      try {
+        const response = await api.get(`/surgery`);
+        setSurgeryOptions(response.data);
+      } catch (e) {
+        console.log('Erro ao buscar cirurgias.', e);
+      }
+      setFetchingOptions(false);
+    })();
+  }, []);
 
   const { id: patientId } = useParams();
-
   // Fetch patient by Id
   useEffect(() => {
     (async function fetchPatient() {
       if (patientId === 'new') return;
 
-      setFetching(true);
+      setFetchingPatient(true);
       try {
         const response = await api.get(`/patient/${patientId}`);
         let patientData = {
@@ -102,9 +109,9 @@ const PatientView = () => {
         };
         setInitialValues(patientData);
       } catch (e) {
-        console.log(e);
+        console.log('Erro ao buscar dados do paciente', e);
       }
-      setFetching(false);
+      setFetchingPatient(false);
     })();
   }, [patientId]);
 
@@ -212,7 +219,7 @@ const PatientView = () => {
                       label="Status"
                       select
                     >
-                      {options.status.map(option => (
+                      {statusOptions.map(option => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.label}
                         </MenuItem>
@@ -225,7 +232,8 @@ const PatientView = () => {
                       variant="outlined"
                       select
                     >
-                      {options.surgery.map(option => (
+                      <MenuItem value={0}>Cirurgia</MenuItem>
+                      {surgeryOptions.map(option => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.label}
                         </MenuItem>
@@ -288,7 +296,7 @@ const PatientView = () => {
                   <CardActions className={classes.submitButton}>
                     <Button
                       color="primary"
-                      disabled={isSubmitting || fetching}
+                      disabled={isSubmitting || fetchingPatient}
                       size="large"
                       type="submit"
                       variant="contained"
