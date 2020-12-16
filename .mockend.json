@@ -1,5 +1,5 @@
 {
-  "patient": {
+  "Patient": {
     "id": 1,
     "bedNumber": 11,
     "birthDate": "1999-11-11T11:11",
