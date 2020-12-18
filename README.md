@@ -8,4 +8,6 @@
 
 - Inicie o servidor de desenvolvimento: `npm run start` or `yarn start`
 
+- Inicialize o backend
+
 - Acesse no navegador: `localhost:3000`
