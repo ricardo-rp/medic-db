@@ -67,7 +67,7 @@ const PatientView = () => {
     birth_date: '',
     city: '',
     status_id: 0,
-    surgery_id: 0,
+    surgery_id: '',
     weight: 0,
     handbook_number: 0,
     bed_number: 0,
@@ -78,7 +78,10 @@ const PatientView = () => {
     { value: 1, label: 'Internado' },
     { value: 2, label: 'Óbito' }
   ]);
-  const [surgeryOptions, setSurgeryOptions] = useState([]);
+  const [surgeryOptions, setSurgeryOptions] = useState([
+    { value: 1, label: 'Fimose' },
+    { value: 2, label: 'Hernia umbilical' }
+  ]);
 
   // Fetch surgery options
   // useEffect(() => {
@@ -118,21 +121,22 @@ const PatientView = () => {
   }, [patientId]);
 
   async function onSubmit(values) {
-    if (patientId === 'new') {
-      try {
-        await api.post(`/patient/`);
+    const isRegister = patientId === 'new';
+    try {
+      if (isRegister) {
+        await api.post(`/patient/`, values);
         alert('Paciente cadastrado.');
-        navigate('/app/patient');
-      } catch (e) {
-        console.log(e);
-        alert('Nao foi possivel cadastrar o paciente. Veja o console.');
+      } else {
+        await api.put(`/patient/${patientId}`, values);
+        alert('Paciente atualizado.');
       }
-    } else {
-      try {
-        await api.update(`/patient/${patientId}`);
-      } catch (e) {
-        console.log(e);
-        alert('Nao foi possivel atualizar o paciente. Veja o console.');
+      navigate('/app/patient');
+    } catch (e) {
+      console.log({ e });
+      if (e.response.data.errno === 19) {
+        alert('Numero de leito ou prontuario ja ocupados.');
+      } else {
+        alert('Nao foi possivel salvar o paciente. Veja o console.');
       }
     }
   }
@@ -234,7 +238,7 @@ const PatientView = () => {
                       variant="outlined"
                       select
                     >
-                      <MenuItem value={0}>Cirurgia</MenuItem>
+                      <MenuItem value="">Nenhuma</MenuItem>
                       {surgeryOptions.map(option => (
                         <MenuItem key={option.value} value={option.value}>
                           {option.label}
