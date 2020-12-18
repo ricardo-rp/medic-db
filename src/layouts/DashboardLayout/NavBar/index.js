@@ -34,21 +34,21 @@ const items = [
     icon: UsersIcon,
     title: 'Pacientes'
   },
-  {
-    href: '/app/cirurgia',
-    icon: Clipboard,
-    title: 'Cirurgias'
-  },
-  {
-    href: '/app/status',
-    icon: Activity,
-    title: 'Status'
-  },
-  {
-    href: '/app/settings',
-    icon: SettingsIcon,
-    title: 'Configuração'
-  },
+  // {
+  //   href: '/app/cirurgia',
+  //   icon: Clipboard,
+  //   title: 'Cirurgias'
+  // },
+  // {
+  //   href: '/app/status',
+  //   icon: Activity,
+  //   title: 'Status'
+  // },
+  // {
+  //   href: '/app/settings',
+  //   icon: SettingsIcon,
+  //   title: 'Configuração'
+  // },
 ];
 
 const useStyles = makeStyles(() => ({
