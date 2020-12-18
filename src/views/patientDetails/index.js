@@ -62,15 +62,15 @@ const PatientView = () => {
   const [fetchingOptions, setFetchingOptions] = useState(false);
   const [fetchingPatient, setFetchingPatient] = useState(false);
   const [initialValues, setInitialValues] = useState({
-    fullName: '',
-    motherName: '',
-    birthDate: '',
+    full_name: '',
+    mother_name: '',
+    birth_date: '',
     city: '',
-    statusId: 0,
-    surgeryId: 0,
+    status_id: 0,
+    surgery_id: 0,
     weight: 0,
-    handbookNumber: 0,
-    bedNumber: 0,
+    handbook_number: 0,
+    bed_number: 0,
     sex: 'M'
   });
   const [statusOptions, setStatusOptions] = useState([
@@ -81,18 +81,18 @@ const PatientView = () => {
   const [surgeryOptions, setSurgeryOptions] = useState([]);
 
   // Fetch surgery options
-  useEffect(() => {
-    (async function fetchOptions() {
-      setFetchingOptions(true);
-      try {
-        const response = await api.get(`/surgery`);
-        setSurgeryOptions(response.data);
-      } catch (e) {
-        console.log('Erro ao buscar cirurgias.', e);
-      }
-      setFetchingOptions(false);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async function fetchOptions() {
+  //     setFetchingOptions(true);
+  //     try {
+  //       const response = await api.get(`/surgery`);
+  //       setSurgeryOptions(response.data);
+  //     } catch (e) {
+  //       console.log('Erro ao buscar cirurgias.', e);
+  //     }
+  //     setFetchingOptions(false);
+  //   })();
+  // }, []);
 
   const { id: patientId } = useParams();
   // Fetch patient by Id
@@ -102,10 +102,12 @@ const PatientView = () => {
 
       setFetchingPatient(true);
       try {
-        const response = await api.get(`/patient/${patientId}`);
+        const responseData = await api.get(`/patient/${patientId}`);
         let patientData = {
-          ...response.data,
-          birthDate: moment(response.data.birthDate).format('yyyy-MM-DDThh:mm')
+          ...responseData.data[0],
+          birth_date: moment(responseData.data[0].birth_date).format(
+            'yyyy-MM-DDThh:mm'
+          )
         };
         setInitialValues(patientData);
       } catch (e) {
@@ -154,27 +156,27 @@ const PatientView = () => {
               enableReinitialize
               initialValues={initialValues}
               validationSchema={Yup.object().shape({
-                fullName: Yup.string()
+                full_name: Yup.string()
                   .max(255)
                   .required('Nome completo é requerido'),
-                motherName: Yup.string()
+                mother_name: Yup.string()
                   .max(255)
                   .required('Nome completo é requerido'),
                 city: Yup.string()
                   .max(255)
                   .required('Cidade de nascimento é requerido'),
-                birthDate: Yup.date().required(
+                birth_date: Yup.date().required(
                   'Data de nascimento é requerido'
                 ),
-                statusId: Yup.number().required('Status é requerido'),
-                surgeryId: Yup.number(),
+                status_id: Yup.number().required('Status é requerido'),
+                surgery_id: Yup.number(),
                 weight: Yup.number()
                   .integer('Insira um numero inteiro')
                   .required(),
-                handbookNumber: Yup.number()
+                handbook_number: Yup.number()
                   .integer('Insira um numero inteiro')
                   .required(),
-                bedNumber: Yup.number()
+                bed_number: Yup.number()
                   .integer('Insira um numero inteiro')
                   .required(),
                 sex: Yup.string()
@@ -189,20 +191,20 @@ const PatientView = () => {
                     <Field
                       component={TextField}
                       label="Nome completo"
-                      name="fullName"
+                      name="full_name"
                       variant="outlined"
                     />
                     <Field
                       component={TextField}
                       label="Nome da mãe"
-                      name="motherName"
+                      name="mother_name"
                       variant="outlined"
                     />
                     <Field
                       component={TextField}
                       type="datetime-local"
                       label="Data de nascimento"
-                      name="birthDate"
+                      name="birth_date"
                       variant="outlined"
                       InputLabelProps={{ shrink: true }}
                     />
@@ -214,7 +216,7 @@ const PatientView = () => {
                     />
                     <Field
                       component={TextField}
-                      name="statusId"
+                      name="status_id"
                       variant="outlined"
                       label="Status"
                       select
@@ -228,7 +230,7 @@ const PatientView = () => {
                     <Field
                       component={TextField}
                       label="Cirurgia"
-                      name="surgeryId"
+                      name="surgery_id"
                       variant="outlined"
                       select
                     >
@@ -257,7 +259,7 @@ const PatientView = () => {
                         component={TextField}
                         type="number"
                         label="# Prontuario"
-                        name="handbookNumber"
+                        name="handbook_number"
                         variant="outlined"
                       />
                     </div>
@@ -266,7 +268,7 @@ const PatientView = () => {
                         component={TextField}
                         type="number"
                         label="# Leito"
-                        name="bedNumber"
+                        name="bed_number"
                         variant="outlined"
                       />
                       <div>
