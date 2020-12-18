@@ -39,7 +39,7 @@ const Toolbar = ({ className, ...rest }) => {
             }}
           >
             <Box maxWidth={500}>
-              <TextField
+              {/* <TextField
                 disabled
                 fullWidth
                 InputProps={{
@@ -53,7 +53,7 @@ const Toolbar = ({ className, ...rest }) => {
                 }}
                 placeholder="Pesquisar paciente"
                 variant="outlined"
-              />
+              /> */}
             </Box>
             <Link to="/app/patient/new">
               <Button color="primary" variant="contained">
