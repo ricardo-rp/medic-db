@@ -60,15 +60,15 @@ const Results = ({ className, ...rest }) => {
                     <TableCell>
                       <Box alignItems="center" display="flex">
                         <Typography color="textPrimary" variant="body1">
-                          {patient.fullName}
+                          {patient.full_name}
                         </Typography>
                       </Box>
                     </TableCell>
                     <TableCell>{patient.sex}</TableCell>
                     <TableCell>
-                      {moment(patient.birthDate).format('DD/MM/YYYY')}
+                      {moment(patient.birth_date).format('DD/MM/YYYY')}
                     </TableCell>
-                    <TableCell>{patient.bedNumber}</TableCell>
+                    <TableCell>{patient.bed_number}</TableCell>
                   </TableRow>
                 ))}
             </TableBody>
