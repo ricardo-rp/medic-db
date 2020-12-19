@@ -1,14 +1,9 @@
 import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
-// import Budget from './Budget';
-// import LatestOrders from './LatestOrders';
-// import LatestProducts from './LatestProducts';
-// import TasksProgress from './TasksProgress';
-// import TotalCustomers from './TotalCustomers';
-// import TotalProfit from './TotalProfit';
 import StatusBarGraph from './StatusBarGraph';
 import SurgeryDonutGraph from './SurgeryDonutGraph';
+import BirthLineGraph from './BirthLineGraph';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -31,6 +26,9 @@ const Dashboard = () => {
           </Grid>
           <Grid item lg={5} md={5} xl={5} sm={12} xs={12}>
             <SurgeryDonutGraph />
+          </Grid>
+          <Grid item xs={12}>
+            <BirthLineGraph />
           </Grid>
         </Grid>
       </Container>
