@@ -59,7 +59,9 @@ const PatientView = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [fetchingOptions, setFetchingOptions] = useState(false);
+  // STATE
+  const [fetchingSurgeries, setFetchingSurgeries] = useState(false);
+  const [fetchingStatus, setFetchingStatus] = useState(false);
   const [fetchingPatient, setFetchingPatient] = useState(false);
   const [initialValues, setInitialValues] = useState({
     full_name: '',
@@ -74,31 +76,30 @@ const PatientView = () => {
     sex: 'M'
   });
   const [statusOptions, setStatusOptions] = useState([
-    { value: 0, label: 'Alta' },
-    { value: 1, label: 'Internado' },
-    { value: 2, label: 'Óbito' }
+    { id: 0, label: 'Alta' },
+    { id: 1, label: 'Internado' },
+    { id: 2, label: 'Óbito' }
   ]);
   const [surgeryOptions, setSurgeryOptions] = useState([
-    { value: 1, label: 'Fimose' },
-    { value: 2, label: 'Hernia umbilical' }
+    { id: 1, label: 'Nenhuma' }
   ]);
 
   // Fetch surgery options
-  // useEffect(() => {
-  //   (async function fetchOptions() {
-  //     setFetchingOptions(true);
-  //     try {
-  //       const response = await api.get(`/surgery`);
-  //       setSurgeryOptions(response.data);
-  //     } catch (e) {
-  //       console.log('Erro ao buscar cirurgias.', e);
-  //     }
-  //     setFetchingOptions(false);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async function fetchOptions() {
+      setFetchingSurgeries(true);
+      try {
+        const response = await api.get(`/surgery`);
+        await setSurgeryOptions(response.data);
+      } catch (e) {
+        console.log('Erro ao buscar cirurgias.', e);
+      }
+      setFetchingSurgeries(false);
+    })();
+  }, []);
 
-  const { id: patientId } = useParams();
   // Fetch patient by Id
+  const { id: patientId } = useParams();
   useEffect(() => {
     (async function fetchPatient() {
       if (patientId === 'new') return;
@@ -125,14 +126,13 @@ const PatientView = () => {
     try {
       if (isRegister) {
         await api.post(`/patient/`, values);
-        alert('Paciente cadastrado.');
       } else {
         await api.put(`/patient/${patientId}`, values);
-        alert('Paciente atualizado.');
       }
+      alert('Paciente salvo.');
       navigate('/app/patient');
     } catch (e) {
-      console.log({ e });
+      console.log('Erro ao salvar o paciente', e);
       if (e.response.data.errno === 19) {
         alert('Numero de leito ou prontuario ja ocupados.');
       } else {
@@ -173,7 +173,7 @@ const PatientView = () => {
                   'Data de nascimento é requerido'
                 ),
                 status_id: Yup.number().required('Status é requerido'),
-                surgery_id: Yup.number(),
+                surgery_id: Yup.number().required('Indique se há cirurgias'),
                 weight: Yup.number()
                   .integer('Insira um numero inteiro')
                   .required(),
@@ -226,7 +226,7 @@ const PatientView = () => {
                       select
                     >
                       {statusOptions.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
+                        <MenuItem key={option.id} value={option.id}>
                           {option.label}
                         </MenuItem>
                       ))}
@@ -238,9 +238,8 @@ const PatientView = () => {
                       variant="outlined"
                       select
                     >
-                      <MenuItem value="">Nenhuma</MenuItem>
                       {surgeryOptions.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
+                        <MenuItem key={option.id} value={option.id}>
                           {option.label}
                         </MenuItem>
                       ))}
@@ -302,7 +301,12 @@ const PatientView = () => {
                   <CardActions className={classes.submitButton}>
                     <Button
                       color="primary"
-                      disabled={isSubmitting || fetchingPatient}
+                      disabled={
+                        isSubmitting ||
+                        fetchingPatient ||
+                        fetchingSurgeries ||
+                        fetchingStatus
+                      }
                       size="large"
                       type="submit"
                       variant="contained"
