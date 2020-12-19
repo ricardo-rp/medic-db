@@ -15,7 +15,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  CircularProgress
 } from '@material-ui/core';
 
 import SurgeryRow from './SurgeryRow';
