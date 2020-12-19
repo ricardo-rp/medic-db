@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import api from 'src/utils/httpClient';
 
-import { X, XCircle } from 'react-feather';
+import { XCircle } from 'react-feather';
 
 import {
   Box,
@@ -42,7 +42,7 @@ const Results = ({ className, ...rest }) => {
     e.stopPropagation();
     if (window.confirm(`Deletar paciente ${patient.full_name}?`)) {
       try {
-        const response = await api.delete(`/patient/${patient.id}`);
+        await api.delete(`/patient/${patient.id}`);
         alert('Paciente deletado');
         fetchPatients();
       } catch (e) {
