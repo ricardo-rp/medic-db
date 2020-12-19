@@ -68,8 +68,8 @@ const PatientView = () => {
     mother_name: '',
     birth_date: '',
     city: '',
-    status_id: 0,
-    surgery_id: '',
+    status_id: 1,
+    surgery_id: 1,
     weight: 0,
     handbook_number: 0,
     bed_number: 0,
@@ -77,9 +77,9 @@ const PatientView = () => {
   });
   // const [statusOptions, setStatusOptions] = useState(
   const statusOptions = [
-    { id: 0, label: 'Alta' },
-    { id: 1, label: 'Internado' },
-    { id: 2, label: 'Óbito' }
+    { id: 1, label: 'Alta' },
+    { id: 2, label: 'Internado' },
+    { id: 3, label: 'Óbito' }
   ];
   // );
   const [surgeryOptions, setSurgeryOptions] = useState([
