@@ -56,7 +56,7 @@ const Results = ({ className, ...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
-        <Box minWidth={1050}>
+        <Box>
           <Table>
             <TableHead>
               <TableRow>
