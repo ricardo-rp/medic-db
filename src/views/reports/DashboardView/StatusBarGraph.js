@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
+
+import api from 'src/utils/httpClient';
+
 import {
   Box,
   Card,
@@ -21,18 +24,44 @@ const StatusBarGraph = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
 
+  const [graphData, setGraphData] = useState([]);
+
+  useEffect(() => {
+    (async function() {
+      try {
+        const response = await api.get('/status/count');
+        setGraphData(response.data);
+      } catch (e) {
+        console.log('Erro ao buscar o grafico de barras', e);
+      }
+    })();
+  }, []);
+
   const data = {
     datasets: [
       {
         backgroundColor: [
           colors.green[300],
           colors.yellow[300],
-          colors.red[300]
+          colors.red[300],
+          colors.purple[300],
+          colors.indigo[300],
+          colors.lightBlue[300],
+          colors.teal[300],
+          colors.lightGreen[300],
+          colors.orange[300],
+          colors.pink[300],
+          colors.deepPurple[300],
+          colors.blue[300],
+          colors.cyan[300],
+          colors.lime[300],
+          colors.amber[300],
+          colors.deepOrange[300]
         ],
-        data: [18, 10, 19]
+        data: graphData.map(surgery => surgery.cnt)
       }
     ],
-    labels: ['Alta', 'Internado', 'Óbito']
+    labels: graphData.map(status => status.label)
   };
 
   const options = {
