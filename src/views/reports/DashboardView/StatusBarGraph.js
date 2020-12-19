@@ -71,13 +71,15 @@ const StatusBarGraph = ({ className, ...rest }) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
+    datasets: {
+      barThickness: 100,
+      maxBarThickness: 200,
+      barPercentage: 0.5,
+      categoryPercentage: 0.5
+    },
     scales: {
       xAxes: [
         {
-          barThickness: 100,
-          maxBarThickness: 200,
-          barPercentage: 0.5,
-          categoryPercentage: 0.5,
           ticks: {
             fontColor: theme.palette.text.secondary
           },

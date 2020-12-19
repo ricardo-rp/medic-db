@@ -31,7 +31,6 @@ const BirthLineGraph = ({ className, ...rest }) => {
     (async function() {
       try {
         const response = await api.get('/timeline');
-        console.log(response.data);
         setGraphData(response.data);
       } catch (e) {
         console.log('Erro ao buscar o grafico donut', e);
