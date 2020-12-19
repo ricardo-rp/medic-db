@@ -32,11 +32,11 @@ const items = [
     icon: Clipboard,
     title: 'Cirurgias'
   },
-  {
-    href: '/app/status',
-    icon: Activity,
-    title: 'Status'
-  },
+  // {
+  //   href: '/app/status',
+  //   icon: Activity,
+  //   title: 'Status'
+  // },
 ];
 
 const useStyles = makeStyles(() => ({
