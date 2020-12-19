@@ -9,7 +9,7 @@ import {
   makeStyles
 } from '@material-ui/core';
 import {
-  Activity,
+  // Activity,
   BarChart as BarChartIcon,
   Clipboard,
   Users as UsersIcon
