@@ -64,7 +64,7 @@ const Results = ({ className, ...rest }) => {
                 <TableCell>Sexo</TableCell>
                 <TableCell>Nascimento</TableCell>
                 <TableCell>Leito</TableCell>
-                <TableCell>Deletar</TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
