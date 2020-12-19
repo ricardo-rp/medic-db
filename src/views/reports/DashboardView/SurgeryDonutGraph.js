@@ -29,7 +29,7 @@ const SurgeryDonutGraph = ({ className, ...rest }) => {
   useEffect(() => {
     (async function() {
       try {
-        const response = await api.get('/surgery');
+        const response = await api.get('/surgery/count');
         setGraphData(response.data);
       } catch (e) {
         console.log('Erro ao buscar o grafico donut', e);
