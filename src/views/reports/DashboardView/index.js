@@ -1,13 +1,13 @@
 import React from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import Page from 'src/components/Page';
-import Budget from './Budget';
-import LatestOrders from './LatestOrders';
-import LatestProducts from './LatestProducts';
+// import Budget from './Budget';
+// import LatestOrders from './LatestOrders';
+// import LatestProducts from './LatestProducts';
+// import TasksProgress from './TasksProgress';
+// import TotalCustomers from './TotalCustomers';
+// import TotalProfit from './TotalProfit';
 import StatusBarGraph from './StatusBarGraph';
-import TasksProgress from './TasksProgress';
-import TotalCustomers from './TotalCustomers';
-import TotalProfit from './TotalProfit';
 import SurgeryDonutGraph from './SurgeryDonutGraph';
 
 const useStyles = makeStyles(theme => ({
