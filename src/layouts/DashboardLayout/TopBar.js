@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import {
   AppBar,
-  Badge,
   Box,
   Hidden,
   IconButton,
@@ -12,8 +11,6 @@ import {
   makeStyles
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
 import { Home } from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
@@ -26,7 +23,6 @@ const useStyles = makeStyles(() => ({
 
 const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
-  const [notifications] = useState([]);
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
@@ -37,20 +33,6 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
           </IconButton>
         </RouterLink>
         <Box flexGrow={1} />
-        <Hidden mdDown>
-          <IconButton color="inherit">
-            <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <IconButton color="inherit">
-            <InputIcon />
-          </IconButton>
-        </Hidden>
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />

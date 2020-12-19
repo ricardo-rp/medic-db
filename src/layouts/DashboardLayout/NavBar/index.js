@@ -3,25 +3,18 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Box,
-  Divider,
   Drawer,
   Hidden,
   List,
-  Typography,
   makeStyles
 } from '@material-ui/core';
 import {
   Activity,
   BarChart as BarChartIcon,
   Clipboard,
-  Settings as SettingsIcon,
   Users as UsersIcon
 } from 'react-feather';
 import NavItem from './NavItem';
-
-const user = {
-  name: '<USERNAME>'
-};
 
 const items = [
   {
@@ -34,21 +27,16 @@ const items = [
     icon: UsersIcon,
     title: 'Pacientes'
   },
-  // {
-  //   href: '/app/cirurgia',
-  //   icon: Clipboard,
-  //   title: 'Cirurgias'
-  // },
-  // {
-  //   href: '/app/status',
-  //   icon: Activity,
-  //   title: 'Status'
-  // },
-  // {
-  //   href: '/app/settings',
-  //   icon: SettingsIcon,
-  //   title: 'Configuração'
-  // },
+  {
+    href: '/app/surgery',
+    icon: Clipboard,
+    title: 'Cirurgias'
+  },
+  {
+    href: '/app/status',
+    icon: Activity,
+    title: 'Status'
+  },
 ];
 
 const useStyles = makeStyles(() => ({
@@ -84,7 +72,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
       display="flex"
       flexDirection="column"
     >
-      <Box
+      {/* <Box
         alignItems="center"
         display="flex"
         flexDirection="column"
@@ -98,7 +86,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           {user.name}
         </Typography>
       </Box>
-      <Divider />
+      <Divider /> */}
       <Box p={2}>
         <List>
           {items.map((item) => (
