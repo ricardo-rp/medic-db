@@ -14,10 +14,11 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow,
+  TableRow
 } from '@material-ui/core';
 
 import SurgeryRow from './SurgeryRow';
+import NewSurgeryRow from './NewSurgeryRow';
 import TableBodyLoader from 'src/components/TableBodyLoader';
 
 const useStyles = makeStyles(theme => ({
@@ -70,7 +71,7 @@ const SurgeryListView = () => {
                   </TableHead>
                   <TableBody>
                     {isFetching ? (
-                      <TableBodyLoader/>
+                      <TableBodyLoader />
                     ) : (
                       surgeries &&
                       surgeries.map(
@@ -84,6 +85,7 @@ const SurgeryListView = () => {
                           )
                       )
                     )}
+                    <NewSurgeryRow fetchSurgeries={fetchSurgeries} />
                   </TableBody>
                 </Table>
               </Box>
