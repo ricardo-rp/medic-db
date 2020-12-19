@@ -17,8 +17,8 @@ const routes = [
     children: [
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'patient', element: <PatientListView /> },
-      { path: 'surgery', element: <SurgeryListView /> },
       { path: 'patient/:id', element: <PatientView /> },
+      { path: 'surgery', element: <SurgeryListView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
   },

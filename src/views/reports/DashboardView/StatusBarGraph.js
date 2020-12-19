@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
 
@@ -12,16 +11,10 @@ import {
   CardHeader,
   Divider,
   useTheme,
-  makeStyles,
   colors
 } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
-  root: {}
-}));
-
 const StatusBarGraph = ({ className, ...rest }) => {
-  const classes = useStyles();
   const theme = useTheme();
 
   const [graphData, setGraphData] = useState([]);
@@ -122,7 +115,7 @@ const StatusBarGraph = ({ className, ...rest }) => {
   };
 
   return (
-    <Card className={clsx(classes.root, className)} {...rest}>
+    <Card {...rest}>
       <CardHeader title="Status" />
       <Divider />
       <CardContent>
