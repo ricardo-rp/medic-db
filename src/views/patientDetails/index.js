@@ -61,7 +61,7 @@ const PatientView = () => {
 
   // STATE
   const [fetchingSurgeries, setFetchingSurgeries] = useState(false);
-  const [fetchingStatus, setFetchingStatus] = useState(false);
+  // const [fetchingStatus, setFetchingStatus] = useState(false);
   const [fetchingPatient, setFetchingPatient] = useState(false);
   const [initialValues, setInitialValues] = useState({
     full_name: '',
@@ -75,11 +75,13 @@ const PatientView = () => {
     bed_number: 0,
     sex: 'M'
   });
-  const [statusOptions, setStatusOptions] = useState([
+  // const [statusOptions, setStatusOptions] = useState(
+  const statusOptions = [
     { id: 0, label: 'Alta' },
     { id: 1, label: 'Internado' },
     { id: 2, label: 'Óbito' }
-  ]);
+  ];
+  // );
   const [surgeryOptions, setSurgeryOptions] = useState([
     { id: 1, label: 'Nenhuma' }
   ]);
@@ -302,10 +304,8 @@ const PatientView = () => {
                     <Button
                       color="primary"
                       disabled={
-                        isSubmitting ||
-                        fetchingPatient ||
-                        fetchingSurgeries ||
-                        fetchingStatus
+                        isSubmitting || fetchingPatient || fetchingSurgeries
+                        // ||fetchingStatus
                       }
                       size="large"
                       type="submit"
