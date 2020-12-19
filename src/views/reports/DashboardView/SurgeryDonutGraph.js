@@ -40,24 +40,24 @@ const SurgeryDonutGraph = ({ className, ...rest }) => {
   const data = {
     datasets: [
       {
-        data: graphData.map(surgery => surgery.count),
+        data: graphData.map(surgery => surgery.cnt),
         backgroundColor: [
-          colors.red[600],
-          colors.purple[600],
-          colors.indigo[600],
-          colors.lightBlue[600],
-          colors.teal[600],
-          colors.lightGreen[600],
-          colors.yellow[600],
-          colors.orange[600],
-          colors.pink[600],
-          colors.deepPurple[600],
-          colors.blue[600],
-          colors.cyan[600],
-          colors.green[600],
-          colors.lime[600],
-          colors.amber[600],
-          colors.deepOrange[600]
+          colors.red[300],
+          colors.purple[300],
+          colors.indigo[300],
+          colors.lightBlue[300],
+          colors.teal[300],
+          colors.lightGreen[300],
+          colors.yellow[300],
+          colors.orange[300],
+          colors.pink[300],
+          colors.deepPurple[300],
+          colors.blue[300],
+          colors.cyan[300],
+          colors.green[300],
+          colors.lime[300],
+          colors.amber[300],
+          colors.deepOrange[300],
         ],
         borderWidth: 8,
         borderColor: colors.common.white,
@@ -72,7 +72,7 @@ const SurgeryDonutGraph = ({ className, ...rest }) => {
     cutoutPercentage: 80,
     layout: { padding: 0 },
     legend: {
-      display: false
+      display: true
     },
     maintainAspectRatio: false,
     responsive: true,
@@ -94,7 +94,7 @@ const SurgeryDonutGraph = ({ className, ...rest }) => {
       <CardHeader title="Cirurgias" />
       <Divider />
       <CardContent>
-        <Box height={250}>
+        <Box height={300}>
           <Doughnut data={data} options={options} />
         </Box>
       </CardContent>

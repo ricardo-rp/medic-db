@@ -95,7 +95,7 @@ const StatusBarGraph = ({ className, ...rest }) => {
       <CardHeader title="Status" />
       <Divider />
       <CardContent>
-        <Box height={250} position="relative">
+        <Box height={300} position="relative">
           <Bar data={data} options={options} />
         </Box>
       </CardContent>

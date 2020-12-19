@@ -26,10 +26,10 @@ const Dashboard = () => {
     <Page className={classes.root} title="Dashboard">
       <Container maxWidth={false}>
         <Grid container spacing={3}>
-          <Grid item lg={8} md={12} xl={9} xs={12}>
+          <Grid item lg={7} md={7} xl={7} sm={12} xs={12}>
             <StatusBarGraph />
           </Grid>
-          <Grid item lg={4} md={6} xl={3} xs={12}>
+          <Grid item lg={5} md={5} xl={5} sm={12} xs={12}>
             <SurgeryDonutGraph />
           </Grid>
         </Grid>
