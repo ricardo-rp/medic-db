@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 import api from 'src/utils/httpClient';
 
+import { X, XCircle } from 'react-feather';
+
 import {
   Box,
   Card,
@@ -14,7 +16,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography
+  Typography,
+  IconButton
 } from '@material-ui/core';
 
 const Results = ({ className, ...rest }) => {
@@ -35,6 +38,21 @@ const Results = ({ className, ...rest }) => {
     }
   }
 
+  async function attemptDelete(e, patient) {
+    e.stopPropagation();
+    if (window.confirm(`Deletar paciente ${patient.full_name}?`)) {
+      try {
+        const response = await api.delete(`/patient/${patient.id}`);
+        alert('Paciente deletado');
+        fetchPatients();
+      } catch (e) {
+        console.log('Erro ao tentar deletar um paciente', e);
+      }
+    } else {
+      alert('Deleção cancelada');
+    }
+  }
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -46,6 +64,7 @@ const Results = ({ className, ...rest }) => {
                 <TableCell>Sexo</TableCell>
                 <TableCell>Nascimento</TableCell>
                 <TableCell>Leito</TableCell>
+                <TableCell>Deletar</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -69,6 +88,15 @@ const Results = ({ className, ...rest }) => {
                       {moment(patient.birth_date).format('DD/MM/YYYY')}
                     </TableCell>
                     <TableCell>{patient.bed_number}</TableCell>
+                    <TableCell>
+                      <IconButton
+                        size="small"
+                        color="secondary"
+                        onClick={e => attemptDelete(e, patient)}
+                      >
+                        <XCircle />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 ))}
             </TableBody>
