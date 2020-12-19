@@ -5,6 +5,7 @@ import DashboardLayout from 'src/layouts/DashboardLayout';
 import MainLayout from 'src/layouts/MainLayout';
 
 import PatientListView from 'src/views/patientList';
+import SurgeryListView from 'src/views/surgeryList';
 import DashboardView from 'src/views/reports/DashboardView';
 import NotFoundView from 'src/views/errors/NotFoundView';
 import PatientView from 'src/views/patientDetails';
@@ -16,6 +17,7 @@ const routes = [
     children: [
       { path: 'dashboard', element: <DashboardView /> },
       { path: 'patient', element: <PatientListView /> },
+      { path: 'surgery', element: <SurgeryListView /> },
       { path: 'patient/:id', element: <PatientView /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]
