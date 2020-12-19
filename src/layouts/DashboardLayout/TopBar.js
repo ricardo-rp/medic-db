@@ -14,7 +14,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
-import { LocalHospital } from '@material-ui/icons';
+import { Home } from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
   root: {},
@@ -24,23 +24,17 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TopBar = ({
-  className,
-  onMobileNavOpen,
-  ...rest
-}) => {
+const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
 
   return (
-    <AppBar
-      className={clsx(classes.root, className)}
-      elevation={0}
-      {...rest}
-    >
+    <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
       <Toolbar>
         <RouterLink to="/">
-          <LocalHospital style={{color: '#fce4ec'}}/>
+          <IconButton>
+            <Home style={{ color: '#fff' }} />
+          </IconButton>
         </RouterLink>
         <Box flexGrow={1} />
         <Hidden mdDown>
@@ -58,10 +52,7 @@ const TopBar = ({
           </IconButton>
         </Hidden>
         <Hidden lgUp>
-          <IconButton
-            color="inherit"
-            onClick={onMobileNavOpen}
-          >
+          <IconButton color="inherit" onClick={onMobileNavOpen}>
             <MenuIcon />
           </IconButton>
         </Hidden>
